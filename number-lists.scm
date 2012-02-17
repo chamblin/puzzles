@@ -1,2 +1,20 @@
-(define (sum l) (foldr (lambda (x y) (+ x y)) 0 l))
+(use srfi-1)
+(define (sum l) (fold (lambda (x y) (+ x y)) 0 l))
 (define (seq x y) (if (< x y) (cons x (seq (+ 1 x) y)) `()))
+(define (seq-step from to step-size)
+	(if (<= (+ from step-size) to)
+		(cons from (seq-step (+ step-size from) to step-size))
+		`()
+	)
+)
+(define (bisect-list-at n xs)
+	(let ((first-part (take-while (lambda (x) (< x n)) xs)))
+		(cons
+			first-part
+			(cons
+				(drop xs (length first-part))
+				`()
+			)
+		)
+	)
+)
