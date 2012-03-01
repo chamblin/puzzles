@@ -4,3 +4,7 @@
 (define (divisors n)
 	(flatten (map (lambda (x) (list x (/ n x))) (filter (lambda (x) (= 0 (remainder n x))) (seq 1 (sqrt n)))))
 )
+
+(define (proper-divisors n)
+	(remove (lambda (x) (= x n)) (divisors n))
+)
